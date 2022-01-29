@@ -1,9 +1,13 @@
 import { createStore, combineReducers } from 'redux';
 
-import numbersReducer from './Numbers/Numbers.reducer';
+import teamsReducer from './Teams/Teams.reducer';
+import playersReducer from './Players/Players.reducer';
+import alertReducer from './Alert/Alert.reducer';
 
 const rootReducer = combineReducers({
-    numbers: numbersReducer
+    teams: teamsReducer,
+    players: playersReducer,
+    alert: alertReducer,
 });
 
 export const store = createStore(rootReducer);
