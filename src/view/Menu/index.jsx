@@ -3,34 +3,37 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 
-import { setPlayers, setTeams } from '../../store/Numbers/Numbers.actions';
-import { selectNumbers } from '../../store/Numbers/Numbers.selectors';
+import { setNumberOfTeams } from '../../store/Teams/Teams.actions';
+import { selectTeams } from '../../store/Teams/Teams.selectors';
+import { selectPlayers } from '../../store/Players/Players.selectors';
 
 import { normalizeMaxMin } from '../../utils/IntegerFunctions';
 
-import Input from '../Commom/Input';
-import { StyledInputs, StyledLogo, StyledMenu } from './index.styles';
 import { Separator } from '../Commom/CommomStyles/index.styles';
+import Buttons from '../Buttons';
+import Input from '../Commom/Input';
+
+import { StyledInputs, StyledLogo, StyledMenu } from './index.styles';
 
 function Menu() {
     const dispatch = useDispatch();
-    const { players, teams } = useSelector(selectNumbers);
+    const { nTeams } = useSelector(selectTeams);
+    const { nPlayers } = useSelector(selectPlayers);
 
     const inputsOptions = [
         {
             id: 'teams',
             max: 20,
             min: 2,
-            value: teams,
-            setter: setTeams,
+            value: nTeams,
+            setter: setNumberOfTeams,
             icon: faUsers,
         },
         {
             id: 'players',
             max: 400,
             min: 2,
-            value: players,
-            setter: setPlayers,
+            value: nPlayers,
             icon: faUser,
             disabled: true,
         },
@@ -65,6 +68,8 @@ function Menu() {
                     />
                 ))}
             </StyledInputs>
+            <Separator base={8} color="#666" />
+            <Buttons />
         </StyledMenu>
     );
 }
