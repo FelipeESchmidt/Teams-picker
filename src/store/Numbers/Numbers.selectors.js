@@ -1,1 +1,0 @@
-export const selectNumbers = state => state.numbers;

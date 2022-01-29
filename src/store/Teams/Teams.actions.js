@@ -1,9 +1,9 @@
-import * as Actions from "./Numbers.types";
+import * as Actions from "./Teams.types";
 
-export function setPlayers(players) {
+export function setNumberOfTeams(nTeams) {
     return {
-        type: Actions.SET_PLAYERS,
-        players
+        type: Actions.SET_N_TEAMS,
+        nTeams
     }
 }
 
@@ -16,6 +16,6 @@ export function setTeams(teams) {
 
 export function reset() {
     return {
-        type: Actions.RESET_VALUES,
+        type: Actions.RESET_TEAMS,
     }
 }
