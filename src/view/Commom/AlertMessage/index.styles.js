@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { alertColors } from './index.constants';
 
 const getColors = (type) => {
-    return alertColors[type];
+    return alertColors[type] || alertColors.default;
 }
 
 export const StyledSnackbar = styled.div`

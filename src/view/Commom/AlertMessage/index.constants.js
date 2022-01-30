@@ -15,4 +15,8 @@ export const alertColors = {
         color: "black",
         background: "#29b6f6",
     },
+    "default": {
+        color: "transparent",
+        background: "transparent",
+    },
 }
