@@ -5,8 +5,6 @@ import { faBlind } from '@fortawesome/free-solid-svg-icons';
 import { addPlayer } from '../../store/Players/Players.actions';
 import { createPlayer, normalizeNames } from '../../utils/PlayerFunctions';
 
-import { Separator } from '../Commom/CommomStyles/index.styles';
-
 import Teams from '../Teams';
 import Players from '../Players';
 
@@ -61,7 +59,6 @@ function TeamsCreator() {
                 onKeyUp={handleEnter}
             />
             <Players />
-            <Separator base={8} color="#666" />
             <Teams />
         </StyledWrapper>
     );
