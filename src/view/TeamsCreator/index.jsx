@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { faBlind } from '@fortawesome/free-solid-svg-icons';
 
 import { addPlayer } from '../../store/Players/Players.actions';
-import { selectPlayers } from '../../store/Players/Players.selectors';
 import { createPlayer, normalizeNames } from '../../utils/PlayerFunctions';
 
+import { Separator } from '../Commom/CommomStyles/index.styles';
+
+import Teams from '../Teams';
 import Players from '../Players';
 
 import { StyledInput, StyledWrapper } from './index.styles';
 import { ENTER_KEY, placeholder } from './index.constants';
-import { useDispatch, useSelector } from 'react-redux';
 
 function TeamsCreator() {
     const dispatch = useDispatch();
-    const { players } = useSelector(selectPlayers);
-
     const [playersName, setPlayersName] = useState('');
 
     const createAddAndResetPlayer = (name) => {
@@ -60,7 +60,9 @@ function TeamsCreator() {
                 handleChange={handleChange}
                 onKeyUp={handleEnter}
             />
-            <Players players={players} />
+            <Players />
+            <Separator base={8} color="#666" />
+            <Teams />
         </StyledWrapper>
     );
 }
