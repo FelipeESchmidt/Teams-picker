@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { removePlayer } from '../../../store/Players/Players.actions';
 
-import { Remove, StyledCard } from './index.styles';
+import { Remove, StyledCard, StyledName } from './index.styles';
 
 function Player({ id, name }) {
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ function Player({ id, name }) {
 
     return (
         <StyledCard>
-            {name}
+            <StyledName>{name}</StyledName>
             <Remove onClick={handleRemovePlayer}>x</Remove>
         </StyledCard>
     );
