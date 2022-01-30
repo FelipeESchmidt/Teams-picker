@@ -23,7 +23,7 @@ export const verifyErrors = (players, nPlayers, nTeams) => {
     if (!hasError) return
 
     const arrErrors = validations.map(validation => validation.error ? errors[validation.id] : "");
-    const errorMessage = arrErrors.filter(err => !!err).join('\\n');
+    const errorMessage = arrErrors.filter(err => !!err).join('\n');
     return createMessage(errorMessage, "error");
 }
 
