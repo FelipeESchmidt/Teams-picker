@@ -1,1 +1,1 @@
-export const alert = state => state.alert;
+export const selectAlert = state => state.alert;
