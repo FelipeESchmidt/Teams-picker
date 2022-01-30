@@ -15,6 +15,9 @@ export const StyledWrapper = styled.div`
     column-gap: 1%;
     row-gap: 10px;
     width: 100%;
+    @media screen and (max-width: 950px) {
+      flex-direction: column;
+    }
 `;
 
 export const StyledTitle = styled.p`
