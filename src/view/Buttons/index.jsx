@@ -1,20 +1,31 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { selectPlayers } from '../../store/Players/Players.selectors';
 import { selectTeams } from '../../store/Teams/Teams.selectors';
 import { reset, setTeams } from '../../store/Teams/Teams.actions';
+import { newMessage } from '../../store/Alert/Alert.actions';
+
+import { generateTeams, verifyErrors } from '../../utils/TeamsFunctions';
 
 import Button from '../Commom/Button';
 import { Separator } from '../Commom/CommomStyles/index.styles';
 
 function Buttons() {
     const dispatch = useDispatch();
-    const { teams } = useSelector(selectTeams);
+    const { teams, nTeams } = useSelector(selectTeams);
+    const { players, nPlayers } = useSelector(selectPlayers);
 
     const hasTeamsGenerated = !!teams.length;
 
     const handleGenerateTeams = () => {
-        dispatch(setTeams([1, 2]));
+        const error = verifyErrors(players, nPlayers, nTeams);
+        if(error){
+            dispatch(newMessage(error));
+            return;
+        }
+        const teams = generateTeams(players, nTeams);
+        dispatch(setTeams(teams));
     }
 
     const handleResetTeams = () => {
