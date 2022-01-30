@@ -1,33 +1,33 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { hideMessage } from '../../store/Alert/Alert.actions';
-import { alert } from '../../store/Alert/Alert.selectors';
+import { hideMessage } from '../../../store/Alert/Alert.actions';
+import { selectAlert } from '../../../store/Alert/Alert.selectors';
 
 import { StyledAlert, StyledSnackbar } from './index.styles';
 
 function AlertMessage() {
     const dispatch = useDispatch();
 
-    const { open, type, message } = useSelector(alert);
+    const { open, type, message } = useSelector(selectAlert);
     const alertRef = useRef(null);
 
-    function handleCloseAlert(event, reason) {
-        if (reason === 'clickaway') return;
-        dispatch(hideMessage());
-    };
+    useEffect(()=> {
+        if(open){
+            setTimeout(() => {
+                dispatch(hideMessage());
+            }, 5000);
+        }
+    },[open, dispatch])
 
     return (
         <StyledSnackbar
             open={open}
-            autoHideDuration={5000}
-            onClose={handleCloseAlert}
         >
             <StyledAlert
                 onLoad={alertRef.current = this}
                 ref={alertRef}
-                onClose={handleCloseAlert}
-                severity={type}
+                type={type}
             >
                 {message}
             </StyledAlert>
