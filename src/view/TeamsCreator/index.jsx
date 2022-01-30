@@ -8,7 +8,7 @@ import { createPlayer, normalizeNames } from '../../utils/PlayerFunctions';
 import Players from '../Players';
 
 import { StyledInput, StyledWrapper } from './index.styles';
-import { placeholder } from './index.constants';
+import { ENTER_KEY, placeholder } from './index.constants';
 import { useDispatch, useSelector } from 'react-redux';
 
 function TeamsCreator() {
@@ -17,17 +17,27 @@ function TeamsCreator() {
 
     const [playersName, setPlayersName] = useState('');
 
+    const createAddAndResetPlayer = (name) => {
+        const newPlayer = createPlayer(name);
+        dispatch(addPlayer(newPlayer));
+        setPlayersName('');
+    }
+
     const handleChange = (event) => {
         const names = event.target.value;
         const namesNormalized = normalizeNames(names, '£');
         if (namesNormalized.includes('£')) {
             const name = namesNormalized.substring(0, namesNormalized.length - 1);
-            const newPlayer = createPlayer(name);
-            dispatch(addPlayer(newPlayer));
-            setPlayersName('');
+            createAddAndResetPlayer(name);
             return;
         }
         setPlayersName(namesNormalized);
+    }
+
+    const handleEnter = (event) => {
+        if(event.keyCode === ENTER_KEY && playersName){
+            createAddAndResetPlayer(playersName);
+        }
     }
 
     const inputOption = {
@@ -44,10 +54,11 @@ function TeamsCreator() {
                 id={inputOption.id}
                 type="text"
                 value={inputOption.value}
-                handleChange={handleChange}
                 icon={inputOption.icon}
                 placeholder={placeholder}
                 autoComplete="off"
+                handleChange={handleChange}
+                onKeyUp={handleEnter}
             />
             <Players players={players} />
         </StyledWrapper>
