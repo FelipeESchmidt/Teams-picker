@@ -10,7 +10,13 @@ export const createMessage = (text, type) => {
 }
 
 const copyToClip = (text) => {
-    navigator.clipboard.writeText(text);
+    try {
+        navigator.clipboard.writeText(text);
+        return createMessage("Copiado com sucesso", "success");
+    }
+    catch (err) {
+        return createMessage("Erro ao copiar", "error");
+    }
 }
 
 const teamToString = (team, teamNumber) => {
@@ -21,7 +27,8 @@ const teamToString = (team, teamNumber) => {
 
 export const copyToClipBoardAllTeams = (teams) => {
     const text = teams.map((team, index) => teamToString(team, index)).join('\n');
-    copyToClip(text);
+    const message = copyToClip(text);
+    return message;
 }
 
 export const copyToClipBoardSingleTeam = (team) => {
