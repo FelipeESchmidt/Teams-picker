@@ -6,7 +6,7 @@ import { faPeopleCarry, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { newMessage } from '../../store/Alert/Alert.actions';
 import { selectTeams } from '../../store/Teams/Teams.selectors';
 
-import { copyToClipBoardAllTeams, createMessage } from '../../utils/AppFunctions';
+import { copyToClipBoardAllTeams } from '../../utils/AppFunctions';
 
 import Team from './Team';
 import { StyledIcon, StyledTitle, StyledTopWrapper, StyledWrapper } from './index.styles';
@@ -18,9 +18,8 @@ function Teams() {
     const { teams } = useSelector(selectTeams);
 
     const handleCopyAll = () => {
-        copyToClipBoardAllTeams(teams);
-        const alert = createMessage("Copiado com sucesso", "success");
-        dispatch(newMessage(alert));
+        const message = copyToClipBoardAllTeams(teams);
+        dispatch(newMessage(message));
     }
 
     const hasTeams = !!teams.length;
