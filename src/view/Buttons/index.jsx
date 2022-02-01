@@ -6,6 +6,7 @@ import { selectTeams } from '../../store/Teams/Teams.selectors';
 import { reset, setTeams } from '../../store/Teams/Teams.actions';
 import { newMessage } from '../../store/Alert/Alert.actions';
 
+import { createMessage } from '../../utils/AppFunctions';
 import { generateTeams, verifyErrors } from '../../utils/TeamsFunctions';
 
 import Button from '../Commom/Button';
@@ -20,16 +21,20 @@ function Buttons() {
 
     const handleGenerateTeams = () => {
         const error = verifyErrors(players, nPlayers, nTeams);
-        if(error){
+        if (error) {
             dispatch(newMessage(error));
             return;
         }
         const teams = generateTeams(players, nTeams);
         dispatch(setTeams(teams));
+        const success = createMessage("Times gerados com sucesso!", "info");
+        dispatch(newMessage(success));
     }
 
     const handleResetTeams = () => {
         dispatch(reset());
+        const message = createMessage("Times resetados com sucesso!", "info");
+        dispatch(newMessage(message));
     }
 
     return (
