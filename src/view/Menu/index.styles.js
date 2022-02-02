@@ -30,3 +30,10 @@ export const StyledInputs = styled.div`
   row-gap: 30px;
   width: 100%;
 `;
+
+export const StyledCheckboxes = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  width: 100%;
+`;
