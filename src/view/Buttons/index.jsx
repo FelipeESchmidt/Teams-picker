@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { selectPlayers } from '../../store/Players/Players.selectors';
 import { selectTeams } from '../../store/Teams/Teams.selectors';
+import { selectOptions } from '../../store/Options/Options.selectors';
 import { reset, setTeams } from '../../store/Teams/Teams.actions';
 import { newMessage } from '../../store/Alert/Alert.actions';
 
@@ -16,6 +17,7 @@ function Buttons() {
     const dispatch = useDispatch();
     const { teams, nTeams } = useSelector(selectTeams);
     const { players, nPlayers } = useSelector(selectPlayers);
+    const { captainMode } = useSelector(selectOptions);
 
     const hasTeamsGenerated = !!teams.length;
 
@@ -37,14 +39,30 @@ function Buttons() {
         dispatch(newMessage(message));
     }
 
-    return (
-        <>
+    const getMainButton = () => {
+        if (!captainMode) {
+            return (
+                <Button
+                    color="#66bb6a"
+                    handleClick={handleGenerateTeams}
+                >
+                    gerar times
+                </Button>
+            );
+        }
+        return (
             <Button
                 color="#66bb6a"
                 handleClick={handleGenerateTeams}
             >
-                gerar times
+                começar
             </Button>
+        );
+    }
+
+    return (
+        <>
+            {getMainButton()}
             {hasTeamsGenerated && (
                 <>
                     <Separator base={2} color="none" />
