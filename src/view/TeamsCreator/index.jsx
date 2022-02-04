@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { faBlind } from '@fortawesome/free-solid-svg-icons';
 
 import { addPlayer } from '../../store/Players/Players.actions';
+import { selectCaptainMode } from '../../store/CaptainMode/CaptainMode.selectors';
 import { createPlayer, normalizeNames } from '../../utils/PlayerFunctions';
 
+import CaptainTeams from '../CaptainTeams';
 import Teams from '../Teams';
 import Players from '../Players';
 
@@ -14,6 +16,7 @@ import { ENTER_KEY, placeholder } from './index.constants';
 function TeamsCreator() {
     const dispatch = useDispatch();
     const [playersName, setPlayersName] = useState('');
+    const { selectingCaptains } = useSelector(selectCaptainMode);
 
     const createAddAndResetPlayer = (name) => {
         const newPlayer = createPlayer(name);
@@ -33,7 +36,7 @@ function TeamsCreator() {
     }
 
     const handleEnter = (event) => {
-        if(event.keyCode === ENTER_KEY && playersName){
+        if (event.keyCode === ENTER_KEY && playersName) {
             createAddAndResetPlayer(playersName);
         }
     }
@@ -58,8 +61,15 @@ function TeamsCreator() {
                 handleChange={handleChange}
                 onKeyUp={handleEnter}
             />
-            <Players />
-            <Teams />
+            {selectingCaptains ? (
+                <CaptainTeams />
+            ) : (
+                <>
+                    <Players />
+                    <Teams />
+                </>
+            )}
+
         </StyledWrapper>
     );
 }
