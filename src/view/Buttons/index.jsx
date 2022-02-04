@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectPlayers } from '../../store/Players/Players.selectors';
 import { selectTeams } from '../../store/Teams/Teams.selectors';
 import { selectOptions } from '../../store/Options/Options.selectors';
+import { startCaptainsSelection } from '../../store/CaptainMode/CaptainMode.actions';
 import { reset, setTeams } from '../../store/Teams/Teams.actions';
 import { newMessage } from '../../store/Alert/Alert.actions';
 
@@ -39,6 +40,15 @@ function Buttons() {
         dispatch(newMessage(message));
     }
 
+    const startCaptainMode = () => {
+        const error = verifyErrors(players, nPlayers, nTeams);
+        if (error) {
+            dispatch(newMessage(error));
+            return;
+        }
+        dispatch(startCaptainsSelection());
+    }
+
     const getMainButton = () => {
         if (!captainMode) {
             return (
@@ -53,7 +63,7 @@ function Buttons() {
         return (
             <Button
                 color="#66bb6a"
-                handleClick={handleGenerateTeams}
+                handleClick={startCaptainMode}
             >
                 começar
             </Button>
