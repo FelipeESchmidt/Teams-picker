@@ -1,0 +1,2 @@
+export const SET_TEAMS_SETTED = '@app/SET_TEAMS_SETTED';
+export const RESET_TEAMS_SETTED = '@app/RESET_TEAMS_SETTED';
