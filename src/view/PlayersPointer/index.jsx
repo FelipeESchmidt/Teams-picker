@@ -5,13 +5,12 @@ import { faBlind } from '@fortawesome/free-solid-svg-icons';
 import { addPlayer } from '../../store/Players/Players.actions';
 import { createPlayer, normalizeNames } from '../../utils/PlayerFunctions';
 
-import Teams from '../Teams';
 import Players from '../Players';
 
 import { StyledInput, StyledWrapper } from './index.styles';
 import { ENTER_KEY, placeholder } from './index.constants';
 
-function TeamsCreator() {
+function PlayersPointer() {
     const dispatch = useDispatch();
     const [playersName, setPlayersName] = useState('');
 
@@ -33,7 +32,7 @@ function TeamsCreator() {
     }
 
     const handleEnter = (event) => {
-        if(event.keyCode === ENTER_KEY && playersName){
+        if (event.keyCode === ENTER_KEY && playersName) {
             createAddAndResetPlayer(playersName);
         }
     }
@@ -59,9 +58,8 @@ function TeamsCreator() {
                 onKeyUp={handleEnter}
             />
             <Players />
-            <Teams />
         </StyledWrapper>
     );
 }
 
-export default TeamsCreator;
+export default PlayersPointer;

@@ -27,7 +27,6 @@ function Teams() {
 
     return (
         <>
-            <Separator base={8} color="#666" />
             <StyledTopWrapper>
                 <StyledTitle>
                     <StyledIcon icon={faPeopleCarry} />
