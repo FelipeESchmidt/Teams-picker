@@ -5,6 +5,7 @@ import { faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 import { setNumberOfTeams } from '../../store/Teams/Teams.actions';
 import { invertCaptainsMode } from '../../store/Options/Options.actions';
+import { reset } from '../../store/CaptainMode/CaptainMode.actions';
 import { selectTeams } from '../../store/Teams/Teams.selectors';
 import { selectPlayers } from '../../store/Players/Players.selectors';
 import { selectOptions } from '../../store/Options/Options.selectors';
@@ -63,6 +64,7 @@ function Menu() {
     function handleClick(id) {
         const checkboxOption = checkboxesOptions.find(checkbox => checkbox.id === id);
         dispatch(checkboxOption.invert());
+        dispatch(reset())
     }
 
     return (
