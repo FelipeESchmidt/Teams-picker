@@ -44,7 +44,7 @@ function Buttons() {
     }
 
     const startCaptainMode = () => {
-        const error = verifyErrors(players, nPlayers, nTeams);
+        const error = verifyErrors(players, nPlayers, nTeams, captainMode);
         if (error) {
             dispatch(newMessage(error));
             return;
