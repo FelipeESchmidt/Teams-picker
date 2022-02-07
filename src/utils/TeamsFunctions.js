@@ -4,9 +4,10 @@ const errors = {
     "playersAreGood": "Houve algum erro na geração dos times",
     "nPlayersBiggerThanTeams": "Número de jogadores precisa ser maior que o número de times",
     "nPlayersAreDivisibleByTeams": "Número de jogadores precisa ser múltiplo do número de times",
+    "nPlayersAreDoubleThanTeams": "Número de jogadores precisa ser no mínimo o dobro do número de times",
 }
 
-export const verifyErrors = (players, nPlayers, nTeams) => {
+export const verifyErrors = (players, nPlayers, nTeams, isCaptainMode) => {
     const validations = [{
         id: "playersAreGood",
         error: !(players.every(player => player.id && player.name))
@@ -18,6 +19,8 @@ export const verifyErrors = (players, nPlayers, nTeams) => {
         error: !(nPlayers % nTeams === 0)
     }];
 
+    isCaptainMode && validations.push({ id: "nPlayersAreDoubleThanTeams", error: !(nPlayers * 2 >= nTeams) });
+
     const hasError = validations.reduce((acumulador, valorAtual) => acumulador || valorAtual.error, false);
 
     if (!hasError) return
@@ -28,7 +31,7 @@ export const verifyErrors = (players, nPlayers, nTeams) => {
 }
 
 const mixPlayers = (players) => {
-    const receivedPlayers = [ ...players ];
+    const receivedPlayers = [...players];
     const playersMixed = [];
     for (let i = receivedPlayers.length; i > 0; i--) {
         playersMixed.push(receivedPlayers.splice(Math.floor(Math.random() * i), 1)[0]);
@@ -46,7 +49,7 @@ export const generateTeams = (players, nTeams) => {
 
     const playersSorted = mixPlayers(setRandomIdToPlayers(players));
 
-    for(let i = 0; i < nTeams; i++){
+    for (let i = 0; i < nTeams; i++) {
         teams.push(playersSorted.splice(0, playersPerTeam));
     }
 
