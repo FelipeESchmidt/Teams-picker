@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { resetTeamsSetted, teamsSetted } from '../../store/App/App.actions';
 import { selectPlayers } from '../../store/Players/Players.selectors';
 import { selectTeams } from '../../store/Teams/Teams.selectors';
 import { selectOptions } from '../../store/Options/Options.selectors';
@@ -32,12 +33,14 @@ function Buttons() {
         dispatch(setTeams(teams));
         const success = createMessage("Times gerados com sucesso!", "info");
         dispatch(newMessage(success));
+        dispatch(teamsSetted());
     }
 
     const handleResetTeams = () => {
         dispatch(reset());
         const message = createMessage("Times resetados com sucesso!", "info");
         dispatch(newMessage(message));
+        dispatch(resetTeamsSetted());
     }
 
     const startCaptainMode = () => {
@@ -46,7 +49,8 @@ function Buttons() {
             dispatch(newMessage(error));
             return;
         }
-        dispatch(startCaptainsSelection());
+        dispatch(startCaptainsSelection(players, nTeams));
+        dispatch(teamsSetted());
     }
 
     const getMainButton = () => {
