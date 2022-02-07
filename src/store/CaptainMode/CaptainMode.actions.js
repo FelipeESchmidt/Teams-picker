@@ -1,4 +1,4 @@
-import { SELECT_CAPTAIN, START_SELECTION, SELECT_PLAYER } from "./CaptainMode.types";
+import { SELECT_CAPTAIN, START_SELECTION, SELECT_PLAYER, SELECTION_FINISHED, RESET } from "./CaptainMode.types";
 
 export function startCaptainsSelection(players, nTeams) {
     return {
@@ -19,5 +19,17 @@ export function selectPlayer(playerId) {
     return {
         type: SELECT_PLAYER,
         playerId
+    }
+}
+
+export function finalizeSelections() {
+    return {
+        type: SELECTION_FINISHED,
+    }
+}
+
+export function reset() {
+    return {
+        type: RESET,
     }
 }
