@@ -1,6 +1,6 @@
 const initialSeparator = `********************\n`;
 const finalSeparator = `\n********************\n`;
-const teamSeparator = (number) => `------Team ${number + 1}------\n`;
+const teamSeparator = (title) => `------Team ${title}------\n`;
 
 export const createMessage = (text, type) => {
     return {
@@ -19,14 +19,14 @@ const copyToClip = (text) => {
     }
 }
 
-const teamToString = (team, teamNumber) => {
+const teamToString = (team, teamTitle) => {
     const teamText = team.map((player, index) => `${index + 1} - ${player.name}`).join('\n');
-    const text = teamSeparator(teamNumber).concat(initialSeparator).concat(teamText).concat(finalSeparator);
+    const text = teamSeparator(teamTitle).concat(initialSeparator).concat(teamText).concat(finalSeparator);
     return text;
 }
 
-export const copyToClipBoardAllTeams = (teams) => {
-    const text = teams.map((team, index) => teamToString(team, index)).join('\n');
+export const copyToClipBoardAllTeams = (teams, hasCaptain) => {
+    const text = teams.map((team, index) => teamToString(team, hasCaptain ? team[0].name : index + 1)).join('\n');
     const message = copyToClip(text);
     return message;
 }
