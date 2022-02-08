@@ -15,5 +15,6 @@ export const StyledCaptainName = styled.span`
 
 export const StyledPlayers = styled.div`
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 `;
